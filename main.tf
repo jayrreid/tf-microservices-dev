@@ -73,6 +73,6 @@ module "eks" {
   version = "1.0.0"
 
   cluster_name = "${var.eks_cluster_name}"
-  subnets = flatten([module.vpc1.master_subnet, module.vpc1.worker_node_subnet])
+  subnets = module.vpc1.master_subnet
   vpc_id = module.vpc1.vpc_id
 }
