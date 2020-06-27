@@ -12,10 +12,6 @@ variable "eks_cluster_name" {
   description = "cluster name"
 }
 
-variable "eks_subnets" {
-  description ="Description: A list of subnets to place the EKS cluster and workers within."
-  type = list(string)
-}
 
 variable "vpc1_vpc_name" {}
 
