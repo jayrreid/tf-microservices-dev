@@ -51,20 +51,28 @@ resource "random_string" "suffix" {
   special = false
 }
 
-//--------------------------------------------------------------------
-// Modules
-
 module "vpc1" {
-  source  = "app.terraform.io/koinonia/vpc1/aws"
-  version = "1.0.0"
+  source  = "terraform-aws-modules/vpc/aws"
+  version = "2.6.0"
 
-  cidr = "${var.vpc1_cidr}"
-  cluster_name = "${var.eks_cluster_name}"
-  master_subnet_cidr = "${var.vpc1_master_subnet_cidr}"
-  private_subnet_cidr = "${var.vpc1_private_subnet_cidr}"
-  public_subnet_cidr = "${var.vpc1_public_subnet_cidr}"
-  vpc_name = "${var.vpc1_vpc_name}"
-  worker_subnet_cidr = "${var.vpc1_worker_subnet_cidr}"
+  name                 = "test-vpc"
+  cidr                 = "10.0.0.0/16"
+  azs                  = data.aws_availability_zones.available.names
+  private_subnets      = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
+  public_subnets       = ["10.0.4.0/24", "10.0.5.0/24", "10.0.6.0/24"]
+  enable_nat_gateway   = true
+  single_nat_gateway   = true
+  enable_dns_hostnames = true
+
+  public_subnet_tags = {
+    "kubernetes.io/cluster/${local.cluster_name}" = "shared"
+    "kubernetes.io/role/elb"                      = "1"
+  }
+
+  private_subnet_tags = {
+    "kubernetes.io/cluster/${local.cluster_name}" = "shared"
+    "kubernetes.io/role/internal-elb"             = "1"
+  }
 }
 
 
@@ -73,6 +81,6 @@ module "eks" {
   version = "1.0.0"
 
   cluster_name = "${var.eks_cluster_name}"
-  subnets = flatten([module.vpc1.master_subnet, module.vpc1.worker_node_subnet])
+  subnets      = module.vpc1.private_subnets
   vpc_id = module.vpc1.vpc_id
 }
