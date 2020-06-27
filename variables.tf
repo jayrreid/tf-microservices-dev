@@ -1,5 +1,8 @@
 //--------------------------------------------------------------------
 // Variables
+variable "region" {
+  default = "us-west-2"
+}
 
 variable "eks_cluster_name" {
   description = "cluster name"
