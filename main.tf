@@ -22,5 +22,5 @@ module "eks" {
   cluster_name = "${var.eks_cluster_name}"
   permissions_boundary = "${var.eks_permissions_boundary}"
   subnets = ["${module.vpc1.master_subnet}", "${module.vpc1.worker_node_subnet}"]
-  vpc_id = "${var.eks_vpc_id}"
+  vpc_id = "${module.vpc1.vpc_id}"
 }

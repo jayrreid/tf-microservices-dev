@@ -1,17 +1,9 @@
 //--------------------------------------------------------------------
 // Variables
-variable "eks_permissions_boundary" {
-  description ="permission boundary attached"
-}
-
-variable "eks_vpc_id" {
-  description = "Description: VPC where the cluster and workers will be deployed."
-}
 
 variable "eks_cluster_name" {
   description = "cluster name"
 }
-
 
 variable "vpc1_vpc_name" {}
 
