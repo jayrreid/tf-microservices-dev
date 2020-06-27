@@ -7,7 +7,7 @@ variable "eks_cluster_name" {
 
 variable "vpc1_vpc_name" {}
 
-variable "cidr" {
+variable "vpc1_cidr" {
   description = "The CIDR block for the VPC."
 }
 
