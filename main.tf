@@ -26,6 +26,11 @@ resource "kubernetes_namespace" "istio_system" {
   }
 }
 
+provider "helm" {
+  kubernetes {
+    load_config_file = false
+  }
+
 resource "helm_release" "istio_init" {
   name       = "istio-init"
   repository = "https://storage.googleapis.com/istio-release/releases/1.5.4/charts/"
