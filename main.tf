@@ -41,7 +41,7 @@ resource "helm_release" "istio_init" {
 resource "helm_release" "istio" {
   depends_on = ["helm_release.istio_init"]
   name       = "istio"
-  repository = "${data.helm_repository.istio.url}"
+  repository = ""https://storage.googleapis.com/istio-release/releases/1.5.4/charts/"
   chart      = "istio"
   version    = "1.5.4"
   namespace  = "${kubernetes_namespace.istio.metadata.0.name}"
