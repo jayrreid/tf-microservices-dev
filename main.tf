@@ -44,7 +44,7 @@ resource "helm_release" "istio" {
   repository = "https://storage.googleapis.com/istio-release/releases/1.5.4/charts/"
   version    = "1.5.4"
   chart      = "istio"
-  namespace  = "${kubernetes_namespace.istio.metadata.0.name}"
+  namespace  = "kubernetes_namespace.istio.metadata.0.name"
 }
 
 
