@@ -13,12 +13,22 @@ resource "kubernetes_namespace" "istio_system" {
 }
 
 provider "helm" {
+
   kubernetes {
     load_config_file = false
+    host                   = data.aws_eks_cluster.cluster.endpoint
+    cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
+    token                  = data.aws_eks_cluster_auth.cluster.token
+    load_config_file       = false
+    version                = "~> 1.11"
   }
 }
 
 resource "helm_release" "istio_init" {
+  triggers {
+    cluster_ep = "data.aws_eks_cluster.cluster.endpoint"
+  }
+
   name       = "istio-init"
   repository = "https://storage.googleapis.com/istio-release/releases/1.5.4/charts/"
   chart      = "istio-init"
