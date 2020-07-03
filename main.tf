@@ -30,6 +30,7 @@ provider "helm" {
   kubernetes {
     load_config_file = false
   }
+}
 
 resource "helm_release" "istio_init" {
   name       = "istio-init"
