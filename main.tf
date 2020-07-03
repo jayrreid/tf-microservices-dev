@@ -20,6 +20,34 @@ provider "kubernetes" {
   version                = "~> 1.11"
 }
 
+resource "kubernetes_namespace" "istio_system" {
+  metadata {
+    name = "istio-system"
+  }
+}
+
+resource "helm_release" "istio_init" {
+  name       = "istio-init"
+  repository = "https://storage.googleapis.com/istio-release/releases/1.5.4/charts/"
+  chart      = "istio-init"
+  version    = "1.5.4"
+  namespace  = "${kubernetes_namespace.istio.metadata.0.name}”
+
+}
+
+/* even though depends_on is configured, this will fail because the above CRDs
+* have yet to propagate to the api server. the only solution thus far is to introduce
+* a delay within the terraform config. */
+resource "helm_release" "istio" {
+  depends_on = ["helm_release.istio_init"]
+  name       = "istio"
+  repository = "${data.helm_repository.istio.url}"
+  chart      = "istio"
+  version    = "1.5.4"
+  namespace  = "${kubernetes_namespace.istio.metadata.0.name}"
+}
+
+
 //--------------------------------------------------------------------
 // Modules
 
