@@ -15,9 +15,6 @@ provider "helm" {
 }
 
 resource "helm_release" "istio_init" {
-  triggers {
-    cluster_ep = "data.aws_eks_cluster.cluster.endpoint"
-  }
 
   name       = "istio-init"
   repository = "https://storage.googleapis.com/istio-release/releases/1.5.4/charts/"
