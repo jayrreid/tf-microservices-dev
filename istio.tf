@@ -27,7 +27,7 @@ resource "helm_release" "istio_init" {
   name       = "istio-init"
   repository = "https://storage.googleapis.com/istio-release/releases/1.5.1/charts/"
   chart      = "istio-init"
-  version    = "1.5.4"
+  version    = "1.5.1"
   namespace  = "${kubernetes_namespace.istio_system.metadata.0.name}"
 
 }
@@ -39,7 +39,7 @@ resource "helm_release" "istio" {
   depends_on = ["helm_release.istio_init"]
   name       = "istio"
   repository = "https://storage.googleapis.com/istio-release/releases/1.5.1/charts/"
-  version    = "1.5.4"
+  version    = "1.5.1"
   chart      = "istio"
   namespace  = "kubernetes_namespace.istio_system.metadata.0.name"
 }
