@@ -13,7 +13,7 @@ provider "kubernetes" {
 }
 
 provider "helm" {
-  version = "~> 1.2.3"
+  version = "v1.1.1"
   kubernetes {
     host                   = data.aws_eks_cluster.cluster.endpoint
     cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
