@@ -7,10 +7,9 @@ resource "kubernetes_namespace" "gremlin" {
 
 
 resource "helm_release" "gremlin" {
-
-  name       = "gremlin"
-  repository = "https://helm.gremlin.com/"
-  chart      = "gremlin"
+  name                      = "gremlin"
+  repository                = "https://helm.gremlin.com/"
+  chart                     = "gremlin"
   gremlin.secret.managed    = "true"
   gremlin.secret.type       = "secret"
   gremlin.secret.teamID     = "e61b3523-2466-5dcf-b601-b4a3f1eb8780"
