@@ -30,7 +30,12 @@ resource "helm_release" "istio_init" {
   version    = "1.3.2"
   namespace  = "${kubernetes_namespace.istio_system.metadata.0.name}"
 
+  # give istio_init time to set up
+   provisioner "local-exec" {
+     command = "sleep 60"
+   }
 }
+
 
 /* even though depends_on is configured, this will fail because the above CRDs
 * have yet to propagate to the api server. the only solution thus far is to introduce
@@ -42,4 +47,6 @@ resource "helm_release" "istio" {
   version    = "1.3.2"
   chart      = "istio"
   namespace  = "kubernetes_namespace.istio_system.metadata.0.name"
+
+  wait       = true
 }
