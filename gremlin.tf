@@ -22,12 +22,12 @@ resource "helm_release" "gremlin" {
   }
 
   set_string {
-    name  = "gremlin_secret_teamID"
+    name  = "gremlin.secret.teamID"
     value = var.gremlin_secret_teamID
   }
 
   set_string {
-    name  = "gremlin_secret_teamSecret"
+    name  = "gremlin.secret.teamSecret"
     value = var.gremlin_secret_teamSecret
   }
 
