@@ -28,7 +28,7 @@ resource "helm_release" "gremlin" {
 
   set_string {
     name  = "gremlin.secret.teamSecret"
-    value = "21fa870a-5472-4aae-ba87-0a5472daae17
+    value = "21fa870a-5472-4aae-ba87-0a5472daae17"
   }
 
   set_string {
