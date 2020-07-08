@@ -21,17 +21,17 @@ resource "helm_release" "gremlin" {
     value = "secret"
   }
 
-  set_string {
+  set {
     name  = "gremlin_secret_teamID"
     value = ${var.gremlin_secret_teamID}
   }
 
-  set_string {
+  set {
     name  = "gremlin_secret_teamSecret"
     value = ${var.gremlin_secret_teamSecret}
   }
 
-  set_string {
+  set {
     name  = "gremlin.secret.clusterID"
     value = module.eks.cluster_id
   }
