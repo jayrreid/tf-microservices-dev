@@ -8,6 +8,14 @@ variable "eks_cluster_name" {
   description = "cluster name"
 }
 
+variable "gremlin_secret_teamID" {
+  description = "gremlin_secret_teamID"
+}
+
+variable "gremlin_secret_teamSecret" {
+  description = "gremlin_secret_teamSecret"
+}
+
 variable "vpc1_vpc_name" {}
 
 variable "vpc1_cidr" {
